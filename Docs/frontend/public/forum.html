@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Forums de discussion">
+    <title>Forums - Liste des forums</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components/header.css">
+    <link rel="stylesheet" href="../assets/css/components/footer.css">
+    <link rel="stylesheet" href="../assets/css/pages/forum.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header (même que index.html) -->
+    <header class="header">
+        <!-- Le contenu du header sera injecté via JavaScript -->
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+        <!-- Fil d'Ariane -->
+        <div class="breadcrumb">
+            <a href="/">Accueil</a> &gt; Forums
+        </div>
+
+        <!-- Filtres et tri -->
+        <div class="forum-controls">
+            <div class="filters">
+                <select id="categoryFilter">
+                    <option value="">Toutes les catégories</option>
+                    <option value="general">Général</option>
+                    <option value="technology">Technologie</option>
+                    <option value="gaming">Jeux vidéo</option>
+                    <option value="sports">Sports</option>
+                    <option value="entertainment">Divertissement</option>
+                    <option value="education">Éducation</option>
+                    <option value="other">Autre</option>
+                </select>
+            </div>
+
+            <div class="sort">
+                <select id="sortSelect">
+                    <option value="activity">Activité récente</option>
+                    <option value="posts">Nombre de posts</option>
+                    <option value="subscribers">Nombre d'abonnés</option>
+                    <option value="created">Date de création</option>
+                </select>
+            </div>
+
+            <!-- Bouton de création (visible si admin) -->
+            <button class="btn btn-create" id="createForumBtn" style="display: none;">
+                <i class="fas fa-plus"></i> Nouveau Forum
+            </button>
+        </div>
+
+        <!-- Liste des forums -->
+        <div class="forums-container">
+            <!-- Les forums seront injectés ici via JavaScript -->
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" id="pagination">
+            <!-- La pagination sera injectée via JavaScript -->
+        </div>
+    </main>
+
+    <!-- Footer (même que index.html) -->
+    <footer class="footer">
+        <!-- Le contenu du footer sera injecté via JavaScript -->
+    </footer>
+
+    <!-- Modales -->
+    <!-- Modale de création de forum -->
+    <div class="modal" id="createForumModal">
+        <div class="modal-content">
+            <h2>Créer un nouveau forum</h2>
+            <form id="createForumForm">
+                <div class="form-group">
+                    <label for="forumTitle">Titre</label>
+                    <input type="text" id="forumTitle" name="title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="forumDescription">Description</label>
+                    <textarea id="forumDescription" name="description" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="forumCategory">Catégorie</label>
+                    <select id="forumCategory" name="category" required>
+                        <option value="general">Général</option>
+                        <option value="technology">Technologie</option>
+                        <option value="gaming">Jeux vidéo</option>
+                        <option value="sports">Sports</option>
+                        <option value="entertainment">Divertissement</option>
+                        <option value="education">Éducation</option>
+                        <option value="other">Autre</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Règles du forum</label>
+                    <div id="forumRules">
+                        <div class="rule-entry">
+                            <input type="text" name="rules[0][title]" placeholder="Titre de la règle" required>
+                            <textarea name="rules[0][content]" placeholder="Description de la règle" required></textarea>
+                        </div>
+                    </div>
+                    <button type="button" id="addRuleBtn" class="btn btn-secondary">
+                        <i class="fas fa-plus"></i> Ajouter une règle
+                    </button>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" data-close-modal>Annuler</button>
+                    <button type="submit" class="btn btn-primary">Créer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/utils/helpers.js"></script>
+    <script src="../assets/js/utils/validation.js"></script>
+    <script src="../assets/js/utils/storage.js"></script>
+    <script src="../assets/js/services/api.js"></script>
+    <script src="../assets/js/services/auth.js"></script>
+    <script src="../assets/js/services/forum.js"></script>
+    <script src="../assets/js/components/header.js"></script>
+    <script src="../assets/js/components/footer.js"></script>
+    <script src="../assets/js/components/modal.js"></script>
+    <script src="../assets/js/pages/forum.js"></script>
+</body>
+</html>

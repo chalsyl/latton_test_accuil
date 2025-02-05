@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Profil utilisateur">
+    <title>Forum - Profil</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components/header.css">
+    <link rel="stylesheet" href="../assets/css/components/footer.css">
+    <link rel="stylesheet" href="../assets/css/pages/profile.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header (injecté via JS) -->
+    <header class="header"></header>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+        <!-- Fil d'Ariane -->
+        <div class="breadcrumb">
+            <a href="/">Accueil</a> &gt; Profil
+        </div>
+
+        <!-- Profil utilisateur -->
+        <div class="profile-container">
+            <!-- En-tête du profil -->
+            <div class="profile-header">
+                <div class="profile-cover" id="profileCover">
+                    <div class="profile-avatar">
+                        <img src="../assets/images/default-avatar.png" alt="Avatar" id="userAvatar">
+                        <button class="edit-avatar-btn" id="editAvatarBtn">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <h1 id="username">Chargement...</h1>
+                    <div class="user-status">
+                        <span class="badge" id="userRole">Membre</span>
+                        <span class="join-date">Membre depuis <span id="joinDate">...</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation du profil -->
+            <div class="profile-nav">
+                <button class="nav-btn active" data-tab="overview">Vue d'ensemble</button>
+                <button class="nav-btn" data-tab="posts">Messages</button>
+                <button class="nav-btn" data-tab="forums">Forums suivis</button>
+                <button class="nav-btn" data-tab="settings">Paramètres</button>
+            </div>
+
+            <!-- Contenu du profil -->
+            <div class="profile-content">
+                <!-- Vue d'ensemble -->
+                <div class="profile-tab active" id="overview">
+                    <div class="profile-stats">
+                        <div class="stat-card">
+                            <i class="fas fa-comment"></i>
+                            <h3>Messages</h3>
+                            <p id="postCount">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-thumbs-up"></i>
+                            <h3>J'aime reçus</h3>
+                            <p id="likesReceived">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-star"></i>
+                            <h3>Réputation</h3>
+                            <p id="reputation">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-section">
+                        <h3>À propos</h3>
+                        <p id="userBio">Aucune bio renseignée</p>
+                        <div class="user-details">
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span id="location">Non renseigné</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-globe"></i>
+                                <span id="website">Non renseigné</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recent-activity">
+                        <h3>Activité récente</h3>
+                        <div class="activity-list" id="activityList">
+                            <!-- L'activité sera injectée via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Messages -->
+                <div class="profile-tab" id="posts">
+                    <div class="posts-filter">
+                        <select id="postTypeFilter">
+                            <option value="all">Tous les messages</option>
+                            <option value="topics">Sujets</option>
+                            <option value="replies">Réponses</option>
+                        </select>
+                        <select id="postSortFilter">
+                            <option value="recent">Plus récents</option>
+                            <option value="likes">Plus aimés</option>
+                        </select>
+                    </div>
+                    <div class="posts-list" id="userPosts">
+                        <!-- Les messages seront injectés via JavaScript -->
+                    </div>
+                    <div class="pagination" id="postsPagination"></div>
+                </div>
+
+                <!-- Forums suivis -->
+                <div class="profile-tab" id="forums">
+                    <div class="followed-forums" id="followedForums">
+                        <!-- Les forums suivis seront injectés via JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Paramètres -->
+                <div class="profile-tab" id="settings">
+                    <form id="profileSettingsForm">
+                        <div class="settings-section">
+                            <h3>Informations personnelles</h3>
+                            <div class="form-group">
+                                <label for="editUsername">Nom d'utilisateur</label>
+                                <input type="text" id="editUsername" name="username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editEmail">Email</label>
+                                <input type="email" id="editEmail" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editBio">Bio</label>
+                                <textarea id="editBio" name="bio"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="editLocation">Localisation</label>
+                                <input type="text" id="editLocation" name="location">
+                            </div>
+                            <div class="form-group">
+                                <label for="editWebsite">Site web</label>
+                                <input type="url" id="editWebsite" name="website">
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3>Préférences</h3>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" name="emailNotifications">
+                                    Recevoir les notifications par email
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" name="showEmail">
+                                    Afficher mon email publiquement
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="themeSelect">Thème</label>
+                                <select id="themeSelect" name="theme">
+                                    <option value="light">Clair</option>
+                                    <option value="dark">Sombre</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3>Sécurité</h3>
+                            <div class="form-group">
+                                <label for="currentPassword">Mot de passe actuel</label>
+                                <input type="password" id="currentPassword" name="currentPassword">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">Nouveau mot de passe</label>
+                                <input type="password" id="newPassword" name="newPassword">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirmer le mot de passe</label>
+                                <input type="password" id="confirmPassword" name="confirmPassword">
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (injecté via JS) -->
+    <footer class="footer"></footer>
+
+    <!-- Modales -->
+    <div class="modal" id="avatarModal">
+        <div class="modal-content">
+            <h3>Modifier l'avatar</h3>
+            <form id="avatarForm">
+                <div class="form-group">
+                    <label for="avatarUpload">Choisir une image</label>
+                    <input type="file" id="avatarUpload" name="avatar" accept="image/*" required>
+                </div>
+                <div class="avatar-preview">
+                    <img id="avatarPreview" src="../assets/images/default-avatar.png" alt="Aperçu">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" data-close-modal>Annuler</button>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/utils/helpers.js"></script>
+    <script src="../assets/js/utils/validation.js"></script>
+    <script src="../assets/js/utils/storage.js"></script>
+    <script src="../assets/js/services/api.js"></script>
+    <script src="../assets/js/services/auth.js"></script>
+    <script src="../assets/js/services/user.js"></script>
+    <script src="../assets/js/components/header.js"></script>
+    <script src="../assets/js/components/footer.js"></script>
+    <script src="../assets/js/components/modal.js"></script>
+    <script src="../assets/js/pages/profile.js"></script>
+</body>
+</html>

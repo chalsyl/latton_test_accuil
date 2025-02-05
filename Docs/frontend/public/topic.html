@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discussion du forum">
+    <title>Forum - Discussion</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components/header.css">
+    <link rel="stylesheet" href="../assets/css/components/footer.css">
+    <link rel="stylesheet" href="../assets/css/pages/topic.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Markdown Editor -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+</head>
+<body>
+    <!-- Header (injecté via JS) -->
+    <header class="header"></header>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+        <!-- Fil d'Ariane -->
+        <div class="breadcrumb">
+            <a href="/">Accueil</a> &gt;
+            <a href="/forums" id="forumLink">Forums</a> &gt;
+            <span id="topicTitle">Chargement...</span>
+        </div>
+
+        <!-- En-tête du sujet -->
+        <div class="topic-header">
+            <h1 id="topicMainTitle">Chargement...</h1>
+            <div class="topic-meta">
+                <span class="author">Par <a href="#" id="authorLink">...</a></span>
+                <span class="date" id="createdAt">...</span>
+                <span class="views"><i class="fas fa-eye"></i> <span id="viewCount">0</span></span>
+                <span class="replies"><i class="fas fa-comment"></i> <span id="replyCount">0</span></span>
+            </div>
+            <!-- Actions (visibles selon les permissions) -->
+            <div class="topic-actions" id="topicActions">
+                <button class="btn btn-subscribe" id="subscribeBtn">
+                    <i class="fas fa-bell"></i> S'abonner
+                </button>
+                <button class="btn btn-edit" id="editTopicBtn" style="display: none;">
+                    <i class="fas fa-edit"></i> Modifier
+                </button>
+                <button class="btn btn-delete" id="deleteTopicBtn" style="display: none;">
+                    <i class="fas fa-trash"></i> Supprimer
+                </button>
+            </div>
+        </div>
+
+        <!-- Contenu du sujet -->
+        <div class="topic-content">
+            <div class="post main-post">
+                <div class="post-sidebar">
+                    <div class="user-info">
+                        <img src="../assets/images/default-avatar.png" alt="Avatar" id="authorAvatar">
+                        <div class="user-details">
+                            <a href="#" class="username" id="authorName">...</a>
+                            <span class="user-role" id="authorRole">Membre</span>
+                            <span class="join-date" id="authorJoinDate">...</span>
+                            <span class="post-count" id="authorPostCount">Posts: 0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-main">
+                    <div class="post-content" id="topicContent">
+                        Chargement...
+                    </div>
+                    <div class="post-footer">
+                        <div class="post-actions">
+                            <button class="btn-like" id="likeBtn">
+                                <i class="fas fa-thumbs-up"></i> <span id="likeCount">0</span>
+                            </button>
+                            <button class="btn-share" id="shareBtn">
+                                <i class="fas fa-share"></i> Partager
+                            </button>
+                            <button class="btn-report" id="reportBtn">
+                                <i class="fas fa-flag"></i> Signaler
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Réponses -->
+            <div class="replies-section">
+                <h3>Réponses</h3>
+                <div class="replies-container" id="repliesContainer">
+                    <!-- Les réponses seront injectées ici via JavaScript -->
+                </div>
+
+                <!-- Pagination des réponses -->
+                <div class="pagination" id="replyPagination">
+                    <!-- La pagination sera injectée via JavaScript -->
+                </div>
+
+                <!-- Formulaire de réponse -->
+                <div class="reply-form" id="replyForm">
+                    <h4>Répondre</h4>
+                    <form id="postReplyForm">
+                        <div class="form-group">
+                            <textarea id="replyContent" name="content" required></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Répondre</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (injecté via JS) -->
+    <footer class="footer"></footer>
+
+    <!-- Modales -->
+    <!-- Modale de partage -->
+    <div class="modal" id="shareModal">
+        <div class="modal-content">
+            <h3>Partager cette discussion</h3>
+            <div class="share-options">
+                <input type="text" id="shareUrl" readonly>
+                <button class="btn btn-copy" id="copyUrlBtn">Copier</button>
+                <div class="social-share">
+                    <button class="btn-facebook"><i class="fab fa-facebook"></i></button>
+                    <button class="btn-twitter"><i class="fab fa-twitter"></i></button>
+                    <button class="btn-linkedin"><i class="fab fa-linkedin"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale de signalement -->
+    <div class="modal" id="reportModal">
+        <div class="modal-content">
+            <h3>Signaler cette discussion</h3>
+            <form id="reportForm">
+                <div class="form-group">
+                    <label for="reportReason">Raison</label>
+                    <select id="reportReason" name="reason" required>
+                        <option value="">Sélectionnez une raison</option>
+                        <option value="spam">Spam</option>
+                        <option value="inappropriate">Contenu inapproprié</option>
+                        <option value="harassment">Harcèlement</option>
+                        <option value="other">Autre</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reportDetails">Détails</label>
+                    <textarea id="reportDetails" name="details" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" data-close-modal>Annuler</button>
+                    <button type="submit" class="btn btn-primary">Envoyer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script src="../assets/js/utils/helpers.js"></script>
+    <script src="../assets/js/utils/validation.js"></script>
+    <script src="../assets/js/utils/storage.js"></script>
+    <script src="../assets/js/services/api.js"></script>
+    <script src="../assets/js/services/auth.js"></script>
+    <script src="../assets/js/services/topic.js"></script>
+    <script src="../assets/js/components/header.js"></script>
+    <script src="../assets/js/components/footer.js"></script>
+    <script src="../assets/js/components/modal.js"></script>
+    <script src="../assets/js/pages/topic.js"></script>
+</body>
+</html>
